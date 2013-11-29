@@ -1,0 +1,27 @@
+{
+  "name": "is-a",
+  "version": "0.1.0",
+  "description": "type checking \"micro library\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dtudury/is-a.git"
+  },
+  "keywords": [
+    "typeof",
+    "type",
+    "checking",
+    "testing"
+  ],
+  "author": "david tudury",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dtudury/is-a/issues"
+  },
+  "devDependencies": {
+    "mocha": "~1.14.0"
+  }
+}

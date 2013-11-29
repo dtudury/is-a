@@ -1,24 +1,4 @@
-is-a
-====
-
-type checking "micro library"
-
-
-
-# is-a
-
-  type checking "micro library"
-
-  [![Build Status](https://travis-ci.org/dtudury/is-a.png)](https://travis-ci.org/dtudury/is-a)
-
-## Installation
-
-    $ npm install is-a
-
-## Usage
-
-```js
-var is = require('is-a');
+var is = require('../index');
 
 //get type safely
 console.log(is([]).toString()); //Array
@@ -42,4 +22,6 @@ console.log(is(/./).a.Primitive()); //false
 console.log(is(/./).a.CoreObject()); //true
 console.log(is(/./).a.JsonBasicType()); //false
 console.log(is(/./).a.BuiltinType()); //true
-```
+
+
+
