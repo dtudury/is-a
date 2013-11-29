@@ -1,10 +1,3 @@
-is-a
-====
-
-type checking "micro library"
-
-
-
 # is-a
 
   type checking "micro library"
