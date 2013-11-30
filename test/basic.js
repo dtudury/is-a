@@ -26,13 +26,23 @@ function nameOfThing(thing) {
 
 describe('is-a', function () {
     describe('#toString', function () {
-        it('should output type of object', function () {
+        it('should output pretty type of object', function () {
             for(var i = 0; i < things.length; i++) {
                 var thing = things[i];
                 var name = nameOfThing(thing);
                 var isStringOfThing = is(thing).toString();
                 assert.equal(isStringOfThing, name);
             }
+            function Test(){}
+            assert.equal(is(new Test).toString(), 'Object');
+            assert.equal(is(arr).toString(), 'Array');
+        });
+    });
+    describe('#toType', function () {
+        it('should output raw type of object', function () {
+            function Test(){}
+            assert.equal(is(new Test).toType(), '[object Object]');
+            assert.equal(is(arr).toType(), '[object Array]');
         });
     });
     describe('#a, #an', function () {

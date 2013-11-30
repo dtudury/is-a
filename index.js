@@ -1,7 +1,7 @@
 module.exports = exports = is;
 
 
-function _typeStringOf(obj) {
+function _typeOf(obj) {
     return {}.toString.call(obj);
 }
 
@@ -11,18 +11,18 @@ function _nameFrom(typeString) {
 }
 
 
-var ARGUMENTS = exports.ARGUMENTS = _typeStringOf((function () {return arguments;})());
-var ARRAY = exports.ARRAY = _typeStringOf([]);
-var BOOLEAN = exports.BOOLEAN = _typeStringOf(true);
-var DATE = exports.DATE = _typeStringOf(new Date);
-var FUNCTION = exports.FUNCTION = _typeStringOf(function () {});
-var MATH = exports.MATH = _typeStringOf(Math);
-var NULL = exports.NULL = _typeStringOf(null);
-var NUMBER = exports.NUMBER = _typeStringOf(0);
-var OBJECT = exports.OBJECT = _typeStringOf({});
-var REGEXP = exports.REGEXP = _typeStringOf(/./);
-var STRING = exports.STRING = _typeStringOf("");
-var UNDEFINED = exports.UNDEFINED = _typeStringOf();
+var ARGUMENTS = exports.ARGUMENTS = _typeOf((function () {return arguments;})());
+var ARRAY = exports.ARRAY = _typeOf([]);
+var BOOLEAN = exports.BOOLEAN = _typeOf(true);
+var DATE = exports.DATE = _typeOf(new Date);
+var FUNCTION = exports.FUNCTION = _typeOf(function () {});
+var MATH = exports.MATH = _typeOf(Math);
+var NULL = exports.NULL = _typeOf(null);
+var NUMBER = exports.NUMBER = _typeOf(0);
+var OBJECT = exports.OBJECT = _typeOf({});
+var REGEXP = exports.REGEXP = _typeOf(/./);
+var STRING = exports.STRING = _typeOf("");
+var UNDEFINED = exports.UNDEFINED = _typeOf();
 
 
 var BUILTIN_TYPE = [ARGUMENTS, ARRAY, BOOLEAN, DATE, FUNCTION, MATH, NULL, NUMBER, OBJECT, REGEXP, STRING, UNDEFINED];
@@ -41,11 +41,11 @@ var _types = {
 function is(obj) {
 
 
-    var _typeString = _typeStringOf(obj);
+    var _typeString = _typeOf(obj);
 
 
     function _a(type) {
-        if (_typeStringOf(type) === ARRAY) return !!~type.indexOf(_typeString);
+        if (_typeOf(type) === ARRAY) return !!~type.indexOf(_typeString);
         return _typeString === type;
     }
 
@@ -57,6 +57,11 @@ function is(obj) {
 
     _a.toString = function () {
         return _nameFrom(_typeString);
+    };
+
+
+    _a.toType = function () {
+        return _typeString;
     };
 
 
