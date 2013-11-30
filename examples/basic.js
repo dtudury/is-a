@@ -1,27 +1,31 @@
 var is = require('../index');
 
-//get type safely
-console.log(is([]).toString()); //Array
-(function() { console.log(is(arguments).toString()); })();  //Arguments
-console.log(is(false).toString()); //Boolean
-console.log(is(new Date).toString()); //Date
-console.log(is(function(){}).toString()); //Function
-console.log(is(Math).toString()); //Math
-console.log(is(null).toString()); //Null
-console.log(is(0).toString()); //Number
-console.log(is({}).toString()); //Object
-console.log(is(/./).toString()); //RegExp
-console.log(is("").toString()); //String
-console.log(is().toString()); //Undefined
+var StringOrRegExp = [is.STRING, is.REGEXP];
+
+var thing1 = /mischief/;
+
+console.log(is(thing1).a.String()); //false
+console.log(is(thing1).not.a.Number()); //true
+console.log(is(thing1).an.Array()); //false
+console.log(is(thing1).a.RegExp()); //true
+console.log(is(thing1).a(StringOrRegExp)); //true
+console.log(is(thing1).a.Primitive()); //false
+console.log(is(thing1).a.CoreObject()); //true
+console.log(is(thing1).not.a.JsonBasicType()); //true
+console.log(is(thing1).a.BuiltinType()); //true
 
 
-//test types legibly
-console.log(is([]).a.Number()); //false
-console.log(is([]).an.Array()); //true
-console.log(is(/./).a.Primitive()); //false
-console.log(is(/./).a.CoreObject()); //true
-console.log(is(/./).a.JsonBasicType()); //false
-console.log(is(/./).a.BuiltinType()); //true
+var thing2 = "mayhem";
+
+console.log(is(thing2).a.String()); //true
+console.log(is(thing2).not.a.Number()); //true
+console.log(is(thing2).an.Array()); //false
+console.log(is(thing2).a.RegExp()); //false
+console.log(is(thing2).a(StringOrRegExp)); //true
+console.log(is(thing2).a.Primitive()); //true
+console.log(is(thing2).a.CoreObject()); //true
+console.log(is(thing2).not.a.JsonBasicType()); //false
+console.log(is(thing2).a.BuiltinType()); //true
 
 
 

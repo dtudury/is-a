@@ -2,12 +2,12 @@ module.exports = exports = is;
 
 
 function _getType(obj) {
-    return {}.toString.call(obj).match(/^\[object (.*)\]$/)[1];
+    return {}.toString.call(obj);
 }
 
 
 var ARRAY = exports.ARRAY = _getType([]);
-var ARGUMENTS = exports.ARGUMENTS = _getType( (function () {return arguments;})());
+var ARGUMENTS = exports.ARGUMENTS = _getType((function () {return arguments;})());
 var BOOLEAN = exports.BOOLEAN = _getType(true);
 var DATE = exports.DATE = _getType(new Date);
 var FUNCTION = exports.FUNCTION = _getType(function () {});
@@ -30,23 +30,22 @@ function is(obj) {
 
 
     var _typeName = _getType(obj)
-    var _match = true;
 
 
     function _a(type) {
-        if (_getType(type) === ARRAY) return (!!~type.indexOf(_typeName)) === _match;
-        return (_typeName === type) === _match;
+        if (_getType(type) === ARRAY) return !!~type.indexOf(_typeName);
+        return _typeName === type;
     }
 
 
-    function _not() {
-        _match = false;
-        return _a;
+    function _notA(type) {
+        if (_getType(type) === ARRAY) return !~type.indexOf(_typeName);
+        return _typeName !== type;
     }
 
 
     _a.toString = function () {
-        return _typeName;
+        return _typeName.match(/^\[object (.*)\]$/i)[1];
     };
 
 
@@ -68,9 +67,30 @@ function is(obj) {
     _a.Primitive = function () {return _a(PRIMITIVE)};
 
 
+    _notA.Array = function () {return _notA(ARRAY)};
+    _notA.Arguments = function () {return _notA(ARGUMENTS)};
+    _notA.Boolean = function () {return _notA(BOOLEAN)};
+    _notA.Date = function () {return _notA(DATE)};
+    _notA.Function = function () {return _notA(FUNCTION)};
+    _notA.Math = function () {return _notA(MATH)};
+    _notA.Null = function () {return _notA(NULL)};
+    _notA.Number = function () {return _notA(NUMBER)};
+    _notA.Object = function () {return _notA(OBJECT)};
+    _notA.RegExp = function () {return _notA(REGEXP)};
+    _notA.String = function () {return _notA(STRING)};
+    _notA.Undefined = function () {return _notA(UNDEFINED)};
+    _notA.BuiltinType = function () {return _notA(BUILTIN_TYPE)};
+    _notA.JsonBasicType = function () {return _notA(JSON_BASIC_TYPE)};
+    _notA.CoreObject = function () {return _notA(CORE_OBJECT)};
+    _notA.Primitive = function () {return _notA(PRIMITIVE)};
+
+
     _a.a = _a;
     _a.an = _a;
-    _a.not = _not;
+    _a.not = {
+        a: _notA,
+        an: _notA
+    };
 
 
     return _a;
