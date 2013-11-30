@@ -18,42 +18,39 @@ var regex = /./;
 var str = "";
 //undefined;
 
+var things = [args, arr, bool, date, fun, math, null, num, obj, regex, str, undefined];
+function nameOfThing(thing) {
+    return {}.toString.call(thing).match(/\[object (.*)\]/i)[1];;
+}
+
 
 describe('is-a', function () {
     describe('#toString', function () {
-        it('should match types to correct strings', function () {
-            assert.equal(is(arr).toString(), "Array");
-            assert.equal(is(args).toString(), "Arguments");
-            assert.equal(is(bool).toString(), "Boolean");
-            assert.equal(is(date).toString(), "Date");
-            assert.equal(is(fun).toString(), "Function");
-            assert.equal(is(math).toString(), "Math");
-            assert.equal(is(null).toString(), "Null");
-            assert.equal(is(num).toString(), "Number");
-            assert.equal(is(obj).toString(), "Object");
-            assert.equal(is(regex).toString(), "RegExp");
-            assert.equal(is(str).toString(), "String");
-            assert.equal(is(undefined).toString(), "Undefined");
+        it('should output type of object', function () {
+            for(var i = 0; i < things.length; i++) {
+                var thing = things[i];
+                var name = nameOfThing(thing);
+                var isStringOfThing = is(thing).toString();
+                assert.equal(isStringOfThing, name);
+            }
         });
     });
     describe('#a, #an', function () {
-        it('should return true for same typed objects', function () {
+        it('should tell if object is of a type', function () {
+            for(var i = 0; i < things.length; i++) {
+                var thing = things[i];
+                var name = nameOfThing(thing);
+                assert(is(thing).a[name](), "is " + name + " a "+ name);
+                assert(is(thing).an[name](), "is " + name + " an "+ name);
+                assert(is(thing)[name](), "is " + name + " "+ name);
+            }
             assert(is(arr).an.Array());
-            assert(is(args).Arguments());
-            assert(is(bool).a.Boolean());
-            assert(is(date).a.Date());
-            assert(is(fun).a.Function());
-            assert(is(math).Math());
-            assert(is(null).Null());
-            assert(is(num).a.Number());
-            assert(is(obj).an.Object());
-            assert(is(regex).a.RegExp());
             assert(is(str).a.String());
             assert(is(undefined).Undefined());
             assert(is(arr).a.CoreObject());
             assert(is(null).a.Primitive());
         });
-        it('should return false for different typed objects', function () {
+        it('should tell if object is of a different type', function () {
             assert(!is(undefined).an.Array());
             assert(!is(arr).Arguments());
             assert(!is(args).a.Boolean());
@@ -71,19 +68,20 @@ describe('is-a', function () {
         });
     });
     describe('#not.a, #not.an', function () {
-        it('should return true for same typed objects', function () {
-            assert(!is(arr).not.a(is.ARRAY));
-            assert(!is(args).not.a(is.ARGUMENTS));
-            assert(!is(bool).not.a(is.BOOLEAN));
-            assert(!is(date).not.a(is.DATE));
-            assert(!is(fun).not.a(is.FUNCTION));
-            assert(!is(math).not.a(is.MATH));
-            assert(!is(null).not.a(is.NULL));
-            assert(!is(num).not.a(is.NUMBER));
-            assert(!is(obj).not.a(is.OBJECT));
-            assert(!is(regex).not.a(is.REGEXP));
-            assert(!is(str).not.a(is.STRING));
-            assert(!is(undefined).not.a(is.UNDEFINED));
+        it('should tell if object is not of a type', function () {
+            for(var i = 0; i < things.length; i++) {
+                var thing = things[i];
+                var name = nameOfThing(thing);
+                for(var j = 0; j < things.length; j++) {
+                    if(i !== j) {
+                        var otherThing = things[j];
+                        var otherName = nameOfThing(otherThing);
+                        assert(is(thing).not.a[otherName](), "is " + name + " not a "+ otherName);
+                        assert(is(thing).not.an[otherName](), "is " + name + " not an "+ otherName);
+                        assert(is(thing).not[otherName](), "is " + name + " not "+ otherName);
+                    }
+                }
+            }
         });
     });
 });

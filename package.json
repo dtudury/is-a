@@ -1,6 +1,6 @@
 {
   "name": "is-a",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "type checking \"micro library\"",
   "main": "index.js",
   "scripts": {
