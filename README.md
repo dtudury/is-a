@@ -56,7 +56,7 @@ console.log(myType.is.a.BuiltinType); //true
 
 ## Tests
 
-this is the complete list of tests. `.a`, `.an`, and `is` are optional, `is(x).not...` is the same as `!is(x)...`
+this is the complete list of tests. `.a`, `.an`, and `.is` are optional, `is(x).not...` is the same as `!is(x)...`
 
 ### Testing: is X a Type
 * `is(x).Arguments`
