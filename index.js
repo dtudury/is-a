@@ -67,6 +67,15 @@ for(var i = 0; i < BUILTIN_TYPE.length; i++) {
         type.not[typeSetName] = type.is.not(typeSet);
     }
 }
+for(var typeSetName in _typeSets) {
+    var typeSet = _typeSets[typeSetName];
+    var message = typeSet.slice(0, typeSet.length - 1).join(", ") + ", or " + typeSet[typeSet.length - 1];
+    typeSet.toString = (function (message) {
+        return function() {
+            return message;
+        }
+    })(message);
+}
 
 
 function is(obj) {
