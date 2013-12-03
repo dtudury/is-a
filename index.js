@@ -1,6 +1,7 @@
 var _typeMap = {};
 
 var is = module.exports = exports = function (obj) {
+    if(obj && obj.toType && _typeMap[obj.toType()] === obj) return obj;
     return _typeMap[{}.toString.call(obj)];
 };
 
