@@ -9,7 +9,7 @@ function _make(obj) {
     var thisType = {}.toString.call(obj);
 
     var thisIs = _typeMap[thisType] = function (other) {
-        return (is(other).an.Array) ? !!~other.indexOf(thisIs) : thisIs === other;
+        return (is(other).an.Array && other !== ARRAY) ? !!~other.indexOf(thisIs) : thisIs === other;
     };
     thisIs.not = function (other) {return !thisIs(other)};
 
